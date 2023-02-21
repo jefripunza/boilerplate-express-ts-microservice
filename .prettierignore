@@ -1,0 +1,4 @@
+# But exclude node_modules folders anywhere
+node_modules/
+
+dist/

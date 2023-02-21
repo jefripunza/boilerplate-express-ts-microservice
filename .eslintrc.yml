@@ -1,0 +1,80 @@
+root: true
+parser: "@typescript-eslint/parser"
+plugins:
+    - "@typescript-eslint"
+    - import
+    - async-await
+env:
+    node: true
+    es2021: true
+    jest: true
+extends:
+    - eslint:recommended
+    - plugin:@typescript-eslint/recommended
+    - prettier
+overrides: []
+parserOptions:
+    # project: "./tsconfig.json"
+    ecmaVersion: latest
+    sourceType: module
+rules:
+    "@typescript-eslint/no-explicit-any": off
+    "@typescript-eslint/ban-types": off
+    "@typescript-eslint/no-namespace": off
+    "@typescript-eslint/no-unused-vars": off
+
+    ### Styling ###
+
+    "@typescript-eslint/naming-convention":
+        [
+            error,
+            { selector: "default", format: ["camelCase", "snake_case"] },
+            {
+                selector: "memberLike",
+                format: ["camelCase", "PascalCase", "snake_case"],
+                leadingUnderscore: "allow",
+            },
+            { selector: "typeLike", format: ["PascalCase"] },
+            { selector: "enumMember", format: ["PascalCase"] },
+            { selector: "class", format: ["PascalCase"] },
+            {
+                selector: "variable",
+                format: ["camelCase", "PascalCase", "snake_case", "UPPER_CASE"],
+                modifiers: [],
+            },
+            { selector: "interface", format: ["PascalCase"], prefix: ["I"] },
+        ]
+
+    # better to ignore comments and others
+    max-len:
+        - error
+        - code: 500
+          ignoreComments: true
+          ignoreTrailingComments: true
+          ignoreStrings: true
+          ignoreTemplateLiterals: true
+          ignoreRegExpLiterals: true
+
+    # I prefer double quotes
+    # http://eslint.org/docs/rules/quotes
+    quotes: [error, double, { avoidEscape: true, allowTemplateLiterals: true }] # airbnb default: ['error', 'single', { avoidEscape: true }]
+
+    ### Variables ###
+
+    prefer-const: off
+
+    ### Best practices ###
+    # require or disallow Yoda conditions
+    yoda: [error, never, { exceptRange: true }]
+
+    ### Import ###
+    import/prefer-default-export: 0
+    import/first: 0
+
+    ### Errors ###
+    no-console: 0
+    no-debugger: 0
+
+    ### Async await ###
+    async-await/space-after-async: error
+    async-await/space-after-await: error
