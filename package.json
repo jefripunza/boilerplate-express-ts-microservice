@@ -12,7 +12,7 @@
         "dev": "npx yarn clean && npx nodemon",
         "remove:node_modules": "npx cross-env rm -rf ./node_modules",
         "reset": "npx yarn remove:node_modules && npx cross-env rm -rf yarn.lock && npx yarn",
-        "swagger": "npx ts-node swagger-gen",
+        "swagger": "npx ts-node ./src/swagger-gen",
         "migration:status": "npx knex migrate:status",
         "migration:all": "npx knex migrate:latest",
         "migration:push": "npx knex migrate:up",

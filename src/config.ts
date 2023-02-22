@@ -18,9 +18,7 @@ export namespace Env {
     export const now = NODE_ENV;
     export const isCiCd = process.env.CI_CD;
     export const isLocal = [Env.local].includes(NODE_ENV);
-    export const isDev = ![Env.local, Env.uat, Env.production].includes(
-        NODE_ENV,
-    );
+    export const isDev = ![Env.uat, Env.production].includes(NODE_ENV);
     export const isUnitTest = process.env.UNIT_TEST === "true";
     export const public_path = process.env.PUBLIC_PATH;
 }
