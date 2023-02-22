@@ -1,0 +1,124 @@
+name: 🚀 Deploy App...
+
+# Controls when the workflow will run
+on: # master = production
+    # Triggers the workflow on push or pull request events but only for the "master" branch
+    push:
+        branches: ["masterr"] # master
+    pull_request:
+        branches: ["masterr"] # master
+
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+    app-deploy:
+        name: 🚚 Boilerplate - Microservice
+        runs-on: server-dell-jefri
+        steps:
+            - name: 🎉 Get latest code
+              uses: actions/checkout@v2
+
+            - name: Rename ENV...
+              run: |
+                  mv .env.example .env
+
+            # ----------------------------------------------------------------------
+            # ----------------------------------------------------------------------
+            # ----------------------------------------------------------------------
+
+            - name: F&R - ENV_SECRET_KEY
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_SECRET_KEY"
+                  replace: ${{ secrets.ENV_SECRET_KEY }}
+                  regex: false
+                  include: ".env"
+
+            # ----------------------------------------------------------------------
+
+            - name: F&R - ENV_DB_TYPE
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_TYPE"
+                  replace: ${{ secrets.ENV_DB_TYPE }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_DB_HOST
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_HOST"
+                  replace: ${{ secrets.ENV_DB_HOST }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_DB_PORT
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_PORT"
+                  replace: ${{ secrets.ENV_DB_PORT }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_DB_USER
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_USER"
+                  replace: ${{ secrets.ENV_DB_USER }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_DB_PASS
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_PASS"
+                  replace: ${{ secrets.ENV_DB_PASS }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_DB_NAME
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_DB_NAME"
+                  replace: ${{ secrets.ENV_DB_NAME }}
+                  regex: false
+                  include: ".env"
+
+            # ----------------------------------------------------------------------
+
+            - name: F&R - ENV_RABBIT_HOST
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_RABBIT_HOST"
+                  replace: ${{ secrets.ENV_RABBIT_HOST }}
+                  regex: false
+                  include: ".env"
+
+            # ----------------------------------------------------------------------
+
+            - name: F&R - ENV_REDIS_USER
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_REDIS_USER"
+                  replace: ${{ secrets.ENV_REDIS_USER }}
+                  regex: false
+                  include: ".env"
+
+            - name: F&R - ENV_REDIS_PASS
+              uses: jacobtomlinson/gha-find-replace@v2
+              with:
+                  find: "ENV_REDIS_PASS"
+                  replace: ${{ secrets.ENV_REDIS_PASS }}
+                  regex: false
+                  include: ".env"
+
+            # ----------------------------------------------------------------------
+            # ----------------------------------------------------------------------
+            # ----------------------------------------------------------------------
+
+            - name: 📡 Docker Compose...
+              run: |
+                  docker-compose pull
+                  docker-compose up --force-recreate --build -d
+                  docker image prune -f

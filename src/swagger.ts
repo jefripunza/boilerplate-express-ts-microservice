@@ -15,7 +15,7 @@ export default {
             url: "https://opensource.org/licenses/MIT",
         },
     },
-    host: Env.isLocal ? `localhost:${Server.port}` : "domain.com",
+    host: Env.isLocal ? `localhost:${Server.port}` : Server.host_url,
     basePath: "/",
     schemes: ["http", "https"],
     consumes: ["application/json"],

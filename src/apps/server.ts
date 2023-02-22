@@ -1,7 +1,3 @@
-import { Server, Path, File, Env } from "@/config";
-import { Text } from "@/helpers/random";
-import doc from "@/swagger";
-
 // 1st
 import fs from "fs";
 import path from "path";
@@ -13,14 +9,19 @@ import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
 import cron from "node-cron";
+import swaggerUi from "swagger-ui-express";
 import SwaggerAutoGen from "@/swagger-gen";
+
+import { Server, Path, File, Env } from "@/config";
+import { Text } from "@/helpers/random";
 
 export const app: Express = express();
 export const server = http.createServer(app);
 
+// ------------------------------------------------------------------------
 //-> middlewares
+
 // identitas user request
 app.use(cookieParser());
 const key_identity = "identity";
@@ -35,6 +36,7 @@ app.use(function (req, res, next) {
     }
     next(); // <-- important!
 });
+
 // for security
 app.disable("x-powered-by");
 app.use(helmet());
@@ -46,12 +48,19 @@ app.use((req, res: Response, next) => {
     );
     return next();
 });
-// formating request
+
+// formatting request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 // logging
 if (Env.isDev) app.use(morgan("dev"));
+
+// Public File
 app.use(express.static(Path.server.public_path));
+
+// ------------------------------------------------------------------------
+//-> Collect
 
 Promise.resolve()
     .then(async () => {

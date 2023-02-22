@@ -66,6 +66,7 @@ export namespace Server {
     export const port = Number(process.env.PORT);
     export const TZ = process.env.TZ ?? "Asia/Jakarta";
     export const secret_key = process.env.SECRET_KEY ?? "default";
+    export const host_url = process.env.HOST_URL ?? "localhost";
     export const barrier = "======================";
 }
 
