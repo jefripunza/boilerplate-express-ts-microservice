@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JWT } from "../config";
+import { JWT } from "@/config";
 
 interface IOption {
     expiresIn?: string;

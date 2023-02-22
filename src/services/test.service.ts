@@ -1,14 +1,14 @@
 import { Response } from "express";
 
-import { Rabbit as RabbitConfig } from "../config";
+import { Rabbit as RabbitConfig } from "@/config";
 
-import { IResponseService } from "../core/boilerplate";
-import * as jwt from "../utils/jwt";
+import { IResponseService } from "@/core/boilerplate";
+import * as jwt from "@/utils/jwt";
 
-import RabbitMQ from "../apps/rabbitmq";
-import RedisApp from "../apps/redis";
+import RabbitMQ from "@/apps/rabbitmq";
+import RedisApp from "@/apps/redis";
 
-import * as Users from "../models/repositories/users.repo";
+import * as Users from "@/models/repositories/users.repo";
 
 // ----------------------------------------------------------------
 

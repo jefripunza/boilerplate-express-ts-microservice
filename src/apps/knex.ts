@@ -1,6 +1,6 @@
 import knex from "knex";
 
-import { Knex, Env } from "../config";
+import { Knex, Env } from "@/config";
 
 export const Database = knex(Env.isUnitTest ? Knex.test : Knex.config);
 export const DatabaseConnect = async (

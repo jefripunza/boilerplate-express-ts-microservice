@@ -1,6 +1,6 @@
 import { createClient, RedisClientType } from "redis";
 
-import { Redis as RedisConfig } from "../config";
+import { Redis as RedisConfig } from "@/config";
 
 let first = true;
 class RedisApp {

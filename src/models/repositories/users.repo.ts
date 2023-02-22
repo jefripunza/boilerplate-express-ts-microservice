@@ -1,12 +1,12 @@
-import { Database } from "../../apps/knex";
-import { tables } from "../../consts";
+import { Database } from "@/apps/knex";
+import { tables } from "@/consts";
 
-import * as sql from "../../helpers/sql";
+import * as sql from "@/helpers/sql";
 
 import {
     IPaginationRequest,
     OrderByEnum,
-} from "../../contracts/pagination.contract";
+} from "@/contracts/pagination.contract";
 
 // ----------------------------------------------------------------
 

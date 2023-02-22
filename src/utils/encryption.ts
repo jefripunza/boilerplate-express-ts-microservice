@@ -2,7 +2,7 @@
 
 import crypto from "crypto";
 
-import { Server } from "../config";
+import { Server } from "@/config";
 
 export const encode = (text: string) => {
     // AES256

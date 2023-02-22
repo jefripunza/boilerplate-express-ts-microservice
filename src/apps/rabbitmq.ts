@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 
 import amqp from "amqplib";
-import { Rabbit as RabbitConfig, Path } from "../config";
+import { Rabbit as RabbitConfig, Path } from "@/config";
 
-type ReceiveCallback = (content: {}, ack: Function) => Promise<void>;
+type ReceiveCallback = (content: any, ack: Function) => Promise<void>;
 
 let first = true;
 class RabbitMQ {
@@ -81,6 +81,7 @@ class RabbitMQ {
         try {
             await this.init();
             await this.channel.assertQueue(queue, { durable: true });
+            await this.channel.prefetch(1);
             this.channel.consume(queue, (data) => {
                 if (data) {
                     const ack = () => {

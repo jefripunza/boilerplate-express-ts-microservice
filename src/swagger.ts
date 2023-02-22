@@ -1,4 +1,5 @@
-import { Server } from "./config";
+import { Server, Env } from "@/config";
+
 export default {
     info: {
         version: "1.0.0",
@@ -14,7 +15,7 @@ export default {
             url: "https://opensource.org/licenses/MIT",
         },
     },
-    host: `localhost:${Server.port}`,
+    host: Env.isLocal ? `localhost:${Server.port}` : "domain.com",
     basePath: "/",
     schemes: ["http", "https"],
     consumes: ["application/json"],

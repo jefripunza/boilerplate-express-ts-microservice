@@ -12,11 +12,14 @@ const NODE_ENV = process.env.NODE_ENV ?? "local";
 process.env.NODE_ENV = NODE_ENV;
 export namespace Env {
     export const local = "local";
-    export const development = "development";
-    export const sit = "sit";
+    export const development = "development"; // dev
+    export const sit = "sit"; // dev
     export const uat = "uat";
     export const production = "production";
-    export const isDev = ![Env.uat, Env.production].includes(NODE_ENV);
+    export const isLocal = [Env.local].includes(NODE_ENV);
+    export const isDev = ![Env.local, Env.uat, Env.production].includes(
+        NODE_ENV,
+    );
     export const isUnitTest = process.env.UNIT_TEST === "true";
 }
 

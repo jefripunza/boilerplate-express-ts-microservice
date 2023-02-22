@@ -1,8 +1,8 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { ExampleValue, JWT, Env } from "../config";
+import { ExampleValue, JWT, Env } from "@/config";
 
-import { IRequestJoin } from "../contracts/request.contract";
+import { IRequestJoin } from "@/contracts/request.contract";
 
 export default (req: IRequestJoin, res: Response, next: NextFunction) => {
     if (Env.isUnitTest) {

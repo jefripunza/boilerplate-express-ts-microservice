@@ -1,6 +1,6 @@
-import { Server, Path, File, Env } from "../config";
-import { Text } from "../helpers/random";
-import doc from "../swagger";
+import { Server, Path, File, Env } from "@/config";
+import { Text } from "@/helpers/random";
+import doc from "@/swagger";
 
 // 1st
 import fs from "fs";
@@ -15,10 +15,6 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import swaggerAutogen from "swagger-autogen";
-
-// Scheduler
-import CronJob from "node-cron";
-import { delay } from "../helpers/async";
 
 export const app: Express = express();
 export const server = http.createServer(app);
@@ -58,7 +54,7 @@ if (Env.isDev) app.use(morgan("dev"));
 Promise.resolve()
     .then(async () => {
         // Documentation
-        if (Env.isDev) {
+        if (Env.isLocal || Env.isDev) {
             const outputFile = path.join(__dirname, "..", "..", "swagger.json");
             const endpointsFiles = fs
                 .readdirSync(Path.server.routers)
@@ -67,7 +63,7 @@ Promise.resolve()
             await swaggerAutogen(outputFile, endpointsFiles, doc);
             const swagger: any = await import(File.swagger.json);
             app.use(
-                "/swagger",
+                "/api/whatsapp/swagger",
                 swaggerUi.serve,
                 swaggerUi.setup(swagger.default),
             );
@@ -95,27 +91,6 @@ Promise.resolve()
                 message: "endpoint not found!",
             });
         });
-    })
-    .then(async () => {
-        // Start Scheduler
-        if (!fs.existsSync(Path.server.tasks)) return;
-        await fs
-            .readdirSync(Path.server.tasks)
-            .forEach(async (task_filename) => {
-                if (String(task_filename).startsWith("#")) return; // non active
-                const task_name = String(task_filename)
-                    .split(".")[0]
-                    .split("-")
-                    .map((v) => String(v)[0].toUpperCase() + String(v).slice(1))
-                    .join(" ");
-                const task: any = await import(
-                    path.join(Path.server.tasks, task_filename)
-                );
-                const [schedule, run] = task.default;
-                // execute
-                CronJob.schedule(schedule, run).start();
-                console.log(`✅ Task ${task_name} is Ready!`);
-            });
     });
 
 export const StartServer = () =>

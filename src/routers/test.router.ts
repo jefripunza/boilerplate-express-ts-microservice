@@ -2,8 +2,8 @@ import { Router } from "express";
 
 // ==================================================================================
 
-import { Controller } from "../core/boilerplate";
-import * as Services from "../services/test.service"; // change this...
+import { Controller } from "@/core/boilerplate";
+import * as Services from "@/services/test.service"; // change this...
 
 const app = Router();
 

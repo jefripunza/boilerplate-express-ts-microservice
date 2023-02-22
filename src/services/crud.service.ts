@@ -1,9 +1,9 @@
-import { IResponseService } from "../core/boilerplate";
-import { IPaginationRequest } from "../contracts/pagination.contract";
+import { IResponseService } from "@/core/boilerplate";
+import { IPaginationRequest } from "@/contracts/pagination.contract";
 
-import * as encryption from "../utils/encryption";
+import * as encryption from "@/utils/encryption";
 
-import * as Users from "../models/repositories/users.repo";
+import * as Users from "@/models/repositories/users.repo";
 
 // ----------------------------------------------------------------
 

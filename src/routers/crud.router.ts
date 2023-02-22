@@ -2,11 +2,11 @@ import { Router } from "express";
 
 // ==================================================================================
 
-import { Controller } from "../core/boilerplate";
-import * as Services from "../services/crud.service"; // change this...
-import { IPaginationRequest } from "../contracts/pagination.contract";
+import { Controller } from "@/core/boilerplate";
+import * as Services from "@/services/crud.service"; // change this...
+import { IPaginationRequest } from "@/contracts/pagination.contract";
 
-import token_validation from "../middlewares/token_validation";
+import token_validation from "@/middlewares/token_validation";
 
 const app = Router();
 
