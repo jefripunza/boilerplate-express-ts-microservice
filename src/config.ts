@@ -5,7 +5,6 @@ import { Knex as KnexInterface } from "knex";
 
 export namespace ExampleValue {
     export const id = 1;
-    export const phone_number = "082214252455";
 }
 
 const NODE_ENV = process.env.NODE_ENV ?? "local";
@@ -16,11 +15,14 @@ export namespace Env {
     export const sit = "sit"; // dev
     export const uat = "uat";
     export const production = "production";
+    export const now = NODE_ENV;
+    export const isCiCd = process.env.CI_CD;
     export const isLocal = [Env.local].includes(NODE_ENV);
     export const isDev = ![Env.local, Env.uat, Env.production].includes(
         NODE_ENV,
     );
     export const isUnitTest = process.env.UNIT_TEST === "true";
+    export const public_path = process.env.PUBLIC_PATH;
 }
 
 export namespace Path {
@@ -30,6 +32,7 @@ export namespace Path {
         process.env.LSNODE_ROOT || // Hosting
         path.join(__dirname, ".."); // if all not found...
     export namespace server {
+        export const public_path = path.join(project_root, "public");
         export const routers = path.join(__dirname, "routers");
         export const tasks = path.join(__dirname, "tasks");
         export const env = path.join(project_root, ".env");

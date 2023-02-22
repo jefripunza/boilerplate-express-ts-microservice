@@ -1,21 +1,25 @@
 FROM node:18-alpine
 LABEL maintainer="Jefri Herdi Triyanto jefriherditriyanto@gmail.com"
 
+ENV CI_CD=true
 WORKDIR /app
 COPY . .
 
+RUN apk add git
+RUN git config --global url."https://".insteadOf git://
+
 # 🌊 Install Dependencies
-RUN yarn
+# RUN npm i -g yarn
+RUN yarn install
 
 # ⚒️ Build
-RUN npm run swagger
 RUN npm run build
+RUN yarn swagger
 
 # 💯 Configuration for Development
-RUN sed -i 's/NODE_ENV=local/NODE_ENV=development/g' .env
-RUN sed -i 's/localhost/host.docker.internal/g' .env.development
-RUN sed -i 's/DB_SYNC=true/DB_SYNC=false/g' .env.development
+RUN sed -i 's/localhost/host.docker.internal/g' .env
 
 # 🚀 Finish !!
-EXPOSE 4000
+EXPOSE 8080
+ENV NODE_ENV=development
 CMD ["yarn", "start"]

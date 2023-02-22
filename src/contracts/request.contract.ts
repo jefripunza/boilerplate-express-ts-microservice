@@ -2,7 +2,6 @@ import { Request } from "express";
 
 export interface ITokenContent {
     id: number;
-    phone_number: string;
 }
 
 interface IReqUser {

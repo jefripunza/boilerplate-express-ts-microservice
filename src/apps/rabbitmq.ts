@@ -102,8 +102,11 @@ class RabbitMQ {
         if (!fs.existsSync(Path.rabbit.consumers)) return;
         await fs
             .readdirSync(Path.rabbit.consumers)
+            .filter(
+                (consumer_filename) =>
+                    !String(consumer_filename).startsWith("#"),
+            )
             .forEach(async (consumer_filename) => {
-                if (String(consumer_filename).startsWith("#")) return; // non active
                 const consumer_name = String(consumer_filename)
                     .split(".")[0]
                     .split("-")
@@ -114,7 +117,7 @@ class RabbitMQ {
                 );
                 const Consume = consume.default;
                 Consume(); // execute
-                console.log(`✅ Consumer ${consumer_name} is Ready!`);
+                console.log(`✅ Consumer : ${consumer_name} is Ready!`);
             });
     }
 }

@@ -37,10 +37,18 @@ class RedisApp {
     /**
      * set/insert/include value on redis
      */
-    async set(database: number, key: string, value: string): Promise<boolean> {
+    async set(
+        database: number,
+        key: string,
+        value: string,
+        expired_timestamp = 0, // parseInt(+new Date() / 1000) + 86400
+    ): Promise<boolean> {
         try {
             await this.init(database);
             await this.client.set(key, value);
+            if (expired_timestamp != 0) {
+                await this.client.expireAt(key, expired_timestamp);
+            }
             return true;
         } catch (error) {
             console.log(error);

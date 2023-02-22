@@ -14,7 +14,8 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
-import swaggerAutogen from "swagger-autogen";
+import cron from "node-cron";
+import SwaggerAutoGen from "@/swagger-gen";
 
 export const app: Express = express();
 export const server = http.createServer(app);
@@ -50,17 +51,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // logging
 if (Env.isDev) app.use(morgan("dev"));
+app.use(express.static(Path.server.public_path));
 
 Promise.resolve()
     .then(async () => {
         // Documentation
         if (Env.isLocal || Env.isDev) {
-            const outputFile = path.join(__dirname, "..", "..", "swagger.json");
-            const endpointsFiles = fs
-                .readdirSync(Path.server.routers)
-                .filter((filename) => !String(filename).startsWith("index."))
-                .map((filename) => path.join(Path.server.routers, filename));
-            await swaggerAutogen(outputFile, endpointsFiles, doc);
+            await SwaggerAutoGen();
             const swagger: any = await import(File.swagger.json);
             app.use(
                 "/api/whatsapp/swagger",
@@ -71,9 +68,10 @@ Promise.resolve()
     })
     .then(async () => {
         //-> Automatic Listing Routers
-        const path_router = path.join(__dirname, "..", "routers");
-        await fs.readdirSync(path_router).forEach(async (router) => {
-            const route: any = await import(path.join(path_router, router));
+        await fs.readdirSync(Path.server.routers).forEach(async (router) => {
+            const route: any = await import(
+                path.join(Path.server.routers, router)
+            );
             app.use(route.default);
         });
     })
@@ -91,9 +89,32 @@ Promise.resolve()
                 message: "endpoint not found!",
             });
         });
+    })
+    .then(async () => {
+        //-> Automatic Listing Tasks / Schedulers
+        if (!fs.existsSync(Path.server.tasks)) return;
+        await fs
+            .readdirSync(Path.server.tasks)
+            .filter((task_filename) => !String(task_filename).startsWith("#"))
+            .forEach(async (task_filename) => {
+                const task_name = String(task_filename)
+                    .split(".")[0]
+                    .split("-")
+                    .map((v) => String(v)[0].toUpperCase() + String(v).slice(1))
+                    .join(" ");
+                const task: any = await import(
+                    path.join(Path.server.tasks, task_filename)
+                );
+                const [cronExpression, RunTask] = task.default;
+                cron.schedule(cronExpression, RunTask);
+                console.log(`✅ Task : ${task_name} is Ready!`);
+            });
     });
 
-export const StartServer = () =>
-    server.listen(Server.port, () =>
-        console.log(`✅ Server listening on ${Server.port}`),
-    );
+export const StartServer = (is_server_run: any = false) =>
+    server.listen(Server.port, () => {
+        console.log(`✅ Server listening on ${Server.port}`);
+        if (is_server_run) {
+            is_server_run();
+        }
+    });
