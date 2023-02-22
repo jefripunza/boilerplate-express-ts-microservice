@@ -4,16 +4,16 @@ saya membuat standar ini bertujuan untuk mempercepat dan meningkatkan efisiensi 
 
 ## :paperclip: Menu
 
-- :bulb: [Features](#bulb-features)
-- :hammer: [Project Setup](#hammer-project-setup)
-- :bug: [Known Bugs](https://github.com/jefripunza/boilerplate-express-ts-microservice/issues)
+-   :bulb: [Features](#bulb-features)
+-   :hammer: [Project Setup](#hammer-project-setup)
+-   :bug: [Known Bugs](https://github.com/jefripunza/boilerplate-express-ts-microservice/issues)
 
 ---
 
 ## :bulb: Features
 
 | Package         | link                                                                        | deskripsi                                  |
-|-----------------|-----------------------------------------------------------------------------|--------------------------------------------|
+| --------------- | --------------------------------------------------------------------------- | ------------------------------------------ |
 | typescript      | [doc](https://www.typescriptlang.org/ "Typescript Homepage")                | bahasa yang digunakan                      |
 | express.js      | [doc](https://expressjs.com/ "Express.js Homepage")                         | server yang digunakan                      |
 | jwt             | [doc](https://jwt.io/ "JSON Web Token Homepage")                            | keamanan auth                              |
@@ -36,19 +36,22 @@ saya membuat standar ini bertujuan untuk mempercepat dan meningkatkan efisiensi 
 
 ## :hammer: Project Setup
 
-1. buat folder baru (project kamu)
-2. masuk ke dalam VSCode dan arahkan ke folder yang kamu buat sebelumnya
-3. clone repository `git clone https://github.com/jefripunza/boilerplate-express-ts-microservice.git .`
-**Note** : menggunakan **.** (titik) agar semua isi file masuk kedalam folder baru yang anda buat sebelumnya
-4. install dependencies `npm install` or `yarn install` or `yarn`
-5. pasang husky **(wajib)** `npm run prepare` or `yarn prepare`
-**Note** : husky digunakan untuk penjagaan kode sebelum di push ke git (seperti sonar)
-6. jalan kan secara development `npm run dev` or `yarn dev`
+1. masuk ke dalam **VSCode** dan arahkan ke **folder project baru** yang kamu buat
+2. clone repository `git clone https://github.com/jefripunza/boilerplate-express-ts-microservice.git .`
+
+   **Note** : menggunakan **.** (titik) agar semua isi file masuk kedalam folder baru yang anda buat sebelumnya
+
+3. install dependencies `npm install` or `yarn install` or `yarn`
+4. pasang husky **(wajib)** `npm run prepare` or `yarn prepare`
+
+   **Note** : husky digunakan untuk penjagaan kode sebelum di push ke git (seperti sonar)
+
+5. jalan kan secara development `npm run dev` or `yarn dev`
 
 <br/>
 
 ## 💫 License
 
-- Code and Contributions have **MIT License**
+-   Code and Contributions have **MIT License**
 
-*Copyright (c) 2023 [Jefri Herdi Triyanto](http://github.com/jefripunza "My Github") ([@jefripunza](https://instagram.com/jefripunza "My Instagram"))*
+_Copyright (c) 2023 [Jefri Herdi Triyanto](http://github.com/jefripunza "My Github") ([@jefripunza](https://instagram.com/jefripunza "My Instagram"))_
