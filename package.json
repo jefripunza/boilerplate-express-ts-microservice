@@ -25,6 +25,7 @@
         "fix:lint-staged": "npx yarn stash && git commit -m \"fix stash\" --no-verify && git push && git stash --keep-index && git clean --force",
         "build": "npx tsc",
         "start": "node dist/index.js",
+        "start:ts": "npx ts-node -r tsconfig-paths/register ./src/index.ts",
         "prepare": "npx husky install"
     },
     "dependencies": {

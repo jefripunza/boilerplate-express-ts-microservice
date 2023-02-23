@@ -13,7 +13,7 @@ RUN git config --global url."https://".insteadOf git://
 RUN yarn install
 
 # ⚒️ Build
-RUN npm run build
+# RUN npm run build
 RUN yarn swagger
 
 # 💯 Configuration for Development
@@ -22,4 +22,4 @@ RUN sed -i 's/localhost/host.docker.internal/g' .env
 # 🚀 Finish !!
 EXPOSE 8080
 ENV NODE_ENV=development
-CMD ["yarn", "start"]
+CMD ["yarn", "start:ts"]

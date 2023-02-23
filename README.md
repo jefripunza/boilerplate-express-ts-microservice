@@ -39,12 +39,12 @@ saya membuat standar ini bertujuan untuk mempercepat dan meningkatkan efisiensi 
 1. masuk ke dalam **VSCode** dan arahkan ke **folder project baru** yang kamu buat
 2. clone repository `git clone https://github.com/jefripunza/boilerplate-express-ts-microservice.git .`
 
-   **Note** : menggunakan **.** (titik) agar semua isi file masuk kedalam folder baru yang anda buat sebelumnya
+    **Note** : menggunakan **.** (titik) agar semua isi file masuk kedalam folder baru yang anda buat sebelumnya
 
 3. install dependencies `npm install` or `yarn install` or `yarn`
 4. pasang husky **(wajib)** `npm run prepare` or `yarn prepare`
 
-   **Note** : husky digunakan untuk penjagaan kode sebelum di push ke git (seperti sonar)
+    **Note** : husky digunakan untuk penjagaan kode sebelum di push ke git (seperti sonar)
 
 5. jalan kan secara development `npm run dev` or `yarn dev`
 
