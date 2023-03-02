@@ -11,6 +11,8 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cron from "node-cron";
 import swaggerUi from "swagger-ui-express";
+import fileUpload from "express-fileupload";
+
 import SwaggerAutoGen from "@/swagger-gen";
 
 import { Server, Path, File, Env } from "@/config";
@@ -52,6 +54,13 @@ app.use((req, res: Response, next) => {
 // formatting request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+    fileUpload({
+        limits: {
+            fileSize: 1024 * 1024 * Server.max_upload_size_mb, // MB
+        },
+    }),
+);
 
 // logging
 if (Env.isDev) app.use(morgan("dev"));
@@ -69,7 +78,7 @@ Promise.resolve()
             await SwaggerAutoGen();
             const swagger: any = await import(File.swagger.json);
             app.use(
-                "/api/whatsapp/swagger",
+                "/api/service-name/swagger",
                 swaggerUi.serve,
                 swaggerUi.setup(swagger.default),
             );

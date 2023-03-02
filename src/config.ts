@@ -65,6 +65,9 @@ export namespace Server {
     export const TZ = process.env.TZ ?? "Asia/Jakarta";
     export const secret_key = process.env.SECRET_KEY ?? "default";
     export const host_url = process.env.HOST_URL ?? "localhost";
+    export const max_upload_size_mb = process.env?.MAX_UPLOAD_MB
+        ? parseInt(process.env.MAX_UPLOAD_MB)
+        : 100; // MB
     export const barrier = "======================";
 }
 
